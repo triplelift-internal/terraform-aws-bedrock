@@ -117,3 +117,23 @@ output "application_inference_profile_arn" {
   description = "The ARN of the application inference profile."
   value       = var.create_app_inference_profile ? awscc_bedrock_application_inference_profile.application_inference_profile[0].inference_profile_arn : null
 }
+
+output "guardrail_id" {
+  description = "The ID of the guardrail. Null if create_guardrail is false."
+  value       = var.create_guardrail ? awscc_bedrock_guardrail.guardrail[0].guardrail_id : null
+}
+
+output "guardrail_arn" {
+  description = "The ARN of the guardrail. Null if create_guardrail is false."
+  value       = var.create_guardrail ? awscc_bedrock_guardrail.guardrail[0].guardrail_arn : null
+}
+
+output "guardrail_version" {
+  description = "The published version of the guardrail. Null if create_guardrail is false."
+  value       = var.create_guardrail ? awscc_bedrock_guardrail_version.guardrail[0].version : null
+}
+
+output "guardrail_name" {
+  description = "The generated guardrail name (includes random prefix). Null if create_guardrail is false."
+  value       = var.create_guardrail ? awscc_bedrock_guardrail.guardrail[0].name : null
+}
