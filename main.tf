@@ -239,7 +239,19 @@ resource "awscc_bedrock_guardrail" "guardrail" {
 resource "awscc_bedrock_guardrail_version" "guardrail" {
   count                = var.create_guardrail ? 1 : 0
   guardrail_identifier = awscc_bedrock_guardrail.guardrail[0].guardrail_id
-  description          = "v-${substr(sha1(jsonencode(awscc_bedrock_guardrail.guardrail[0])), 0, 8)}"
+
+  description = "v-${substr(sha1(jsonencode({
+    content_policy                    = awscc_bedrock_guardrail.guardrail[0].content_policy_config
+    sensitive_information_policy      = awscc_bedrock_guardrail.guardrail[0].sensitive_information_policy_config
+    word_policy                       = awscc_bedrock_guardrail.guardrail[0].word_policy_config
+    topic_policy                      = awscc_bedrock_guardrail.guardrail[0].topic_policy_config
+    contextual_grounding_policy       = awscc_bedrock_guardrail.guardrail[0].contextual_grounding_policy_config
+    automated_reasoning_policy        = awscc_bedrock_guardrail.guardrail[0].automated_reasoning_policy_config
+    cross_region_config               = awscc_bedrock_guardrail.guardrail[0].cross_region_config
+    blocked_input_messaging           = awscc_bedrock_guardrail.guardrail[0].blocked_input_messaging
+    blocked_outputs_messaging         = awscc_bedrock_guardrail.guardrail[0].blocked_outputs_messaging
+  })), 0, 8)}"
+
   lifecycle {
     create_before_destroy = true
   }
