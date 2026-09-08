@@ -2138,3 +2138,9 @@ variable "supplemental_data_s3_uri" {
   type        = string
   default     = null
 }
+
+variable "guardrail_version_description" {
+  description = "Base description for the published guardrail version. A short hash of the guardrail configuration is appended automatically so that any configuration change publishes a new immutable version."
+  type        = string
+  default     = "Guardrail version"
+}
